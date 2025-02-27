@@ -2,13 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 const {
-    getArtists,
-    addArtist,
+    getArtistSong,
     updateArtist,
     deleteArtist
 } = require('../controllers/artistController')
-router.get('/', getArtists)
-router.post('/', addArtist)
+router.get('/:id/songs', getArtistSong)
 router.put('/:id', updateArtist)
 router.delete('/:id', deleteArtist)
 module.exports = router

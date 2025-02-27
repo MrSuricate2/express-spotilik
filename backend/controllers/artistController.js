@@ -1,20 +1,21 @@
-const { Artist } = require('../models');
+const { Artist, Track} = require('../models');
 
-const getArtists = async (req, res) => {
+const getArtistSong = async (req, res) => {
     try {
-        const artists = await Artist.findAll();
-        res.json(artists);
+        const artist = await Artist.findByPk(req.params.id, {
+            include: {
+                model: Track,
+                through: { attributes: [] }
+            }
+        });
+
+        if (!artist) {
+            return res.status(404).json({ message: 'Artist not found' });
+        }
+
+        res.json(artist.Tracks);
     } catch (error) {
         res.status(500).json({ error: error.message });
-    }
-};
-
-const addArtist = async (req, res) => {
-    try {
-        const artist = await Artist.create(req.body);
-        res.status(201).json(artist);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
     }
 };
 
@@ -45,8 +46,7 @@ const deleteArtist = async (req, res) => {
 };
 
 module.exports = {
-    getArtists,
-    addArtist,
+    getArtistSong,
     updateArtist,
     deleteArtist
 };
