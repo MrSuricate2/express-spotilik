@@ -39,6 +39,20 @@ const addAlbum = async (req, res) => {
     }
 };
 
+const addSongToAlbum = async (req, res) => {
+    try {
+        const album = await Album.findByPk(req.params.id);
+        if (!album) {
+            return res.status(404).json({ message: 'Album not found' });
+        }
+        const trackData = { ...req.body, album_id: album.id };
+        const newTrack = await Track.create(trackData);
+        res.status(201).json(newTrack);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 const updateAlbum = async (req, res) => {
     try {
         const album = await Album.findByPk(req.params.id);
@@ -70,6 +84,7 @@ module.exports = {
     getAlbumById,
     getAlbumTracks,
     addAlbum,
+    addSongToAlbum,
     updateAlbum,
     deleteAlbum
 };
