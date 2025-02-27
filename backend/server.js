@@ -6,7 +6,11 @@ const port = process.env.PORT || 5000;
 
 // Initialisation de Express
 const app = express();
-app.use(express.json());
+app.use(express.json())
+app.use(express.urlencoded())
+
+const artistRoutes = require('./routes/artistRoutes');
+app.use('/api/artists', artistRoutes);
 
 sequelize.sync()
     .then(() => console.log('Base de données synchronisée'))
