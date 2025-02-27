@@ -1,13 +1,16 @@
 // Import des modules
 const express = require('express');
 const dotenv = require('dotenv').config({path: './.env'});
+const sequelize = require('./config/db');
 const port = process.env.PORT || 5000;
-
-const connectDB = require('./config/db');
-connectDB();
 
 // Initialisation de Express
 const app = express();
+app.use(express.json());
+
+sequelize.sync()
+    .then(() => console.log('Base de données synchronisée'))
+    .catch(err => console.error('Erreur de connexion', err));
 
 // Lancement du serveur
 app.listen(port, () => {
