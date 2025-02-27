@@ -11,6 +11,8 @@ app.use(express.urlencoded())
 
 const artistRoutes = require('./routes/artistRoutes');
 app.use('/api/artists', artistRoutes);
+const userRoutes = require('./routes/userRoutes');
+app.use('/api/users', userRoutes);
 
 sequelize.sync()
     .then(() => console.log('Base de données synchronisée'))
