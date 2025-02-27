@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 const {
-    addUsers,
-    loginUsers,
-    deleteUsers
-} = require('../controllers/artistController')
-router.post('/signup', addUsers)
-router.post('/login', loginUsers)
-router.delete('/:id', deleteUsers)
+    addUser,
+    deleteUser,
+    loginUser
+} = require('../controllers/userController')
+router.post('/signup', addUser)
+router.post('/login', deleteUser)
+router.delete('/:id', loginUser)
 module.exports = router
