@@ -1,5 +1,8 @@
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const SECRET_KEY = process.env.JWT_SECRET;
 
 const addUser = async (req, res) => {
     try {
@@ -52,9 +55,34 @@ const deleteUser = async (req, res) => {
     }
 };
 
-// TODO: Implement login logic with authentication and JWT
 const loginUser = async (req, res) => {
-    res.status(501).json({ message: 'Login functionality not implemented yet' });
+    try {
+        const { username, password } = req.body;
+
+        if (!username || !password) {
+            return res.status(400).json({ error: 'Username and password are required' });
+        }
+
+        const user = await User.findOne({ where: { username } });
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password_hash);
+        if (!isMatch) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const token = jwt.sign(
+            { id: user.id, username: user.username, email: user.email },
+            SECRET_KEY,
+            { expiresIn: '2h' }
+        );
+
+        res.json({ token });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 module.exports = {
