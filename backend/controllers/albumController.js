@@ -1,8 +1,12 @@
-const { Album, Track } = require('../models');
+const { Album, Track, Artist} = require('../models');
 
 const getAlbums = async (req, res) => {
     try {
-        const albums = await Album.findAll();
+        const albums = await Album.findAll({
+            include: [{
+                model: Artist
+            }]
+        });
         res.json(albums);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -11,7 +15,11 @@ const getAlbums = async (req, res) => {
 
 const getAlbumById = async (req, res) => {
     try {
-        const album = await Album.findByPk(req.params.id);
+        const album = await Album.findByPk(req.params.id, {
+            include: [{
+                model: Artist
+            }]
+        });
         if (!album) {
             return res.status(404).json({ message: 'Album not found' });
         }
@@ -23,7 +31,17 @@ const getAlbumById = async (req, res) => {
 
 const getAlbumTracks = async (req, res) => {
     try {
-        const tracks = await Track.findAll({ where: { album_id: req.params.id } });
+        const tracks = await Track.findAll({
+            where: {
+                album_id: req.params.id
+            },
+            include: [{
+                model: Album,
+                include: [{
+                    model: Artist
+                }]
+            }]
+        });
         res.json(tracks);
     } catch (error) {
         res.status(500).json({ error: error.message });
