@@ -1,0 +1,474 @@
+{
+	"info": {
+		"_postman_id": "84ddcf81-c186-4158-8f0f-fbe1b077a6f7",
+		"name": "Spotilik API",
+		"description": "Collection pour tester l'API de Spotilik",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41155867"
+	},
+	"item": [
+		{
+			"name": "Albums",
+			"item": [
+				{
+					"name": "Afficher tous les albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher un albums by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/albums/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"albums",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Afficher les son d'un albums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/albums/1/songs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"albums",
+								"1",
+								"songs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ajouter un album",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Abbey Road\",\n  \"cover_image\": \"abbey_road.jpg\",\n  \"release_date\": \"1969-09-26\",\n  \"artist_id\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/albums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"albums"
+							]
+						},
+						"description": "Ajoute un nouvel album à la base de données"
+					},
+					"response": []
+				},
+				{
+					"name": "Ajouter un morceau à un album",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Come Together\",\n  \"duration\": \"04:19:00\",\n  \"genres\": [1, 2],\n  \"artists\": [1]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/albums/1/songs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"albums",
+								"1",
+								"songs"
+							]
+						},
+						"description": "Ajoute un nouveau morceau à l'album spécifié par ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier un album",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Abbey Road (Remastered)\",\n  \"cover_image\": \"abbey_road_remastered.jpg\",\n  \"release_date\": \"1969-09-26\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/albums/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"albums",
+								"1"
+							]
+						},
+						"description": "Modifie l'album spécifié par ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un album",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJNclN1cmljYXRlIiwiZW1haWwiOiJrZXZpbi5mZXJyYXJldHRvQGVjb2xlcy1lcHNpLm5ldCIsImlhdCI6MTc0MjU2NDYyOSwiZXhwIjoxNzQyNTcxODI5fQ.Rk_NtNq0bzkCsMKp2xJonOhxZTNcX_2yqg0hIVFT5E0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/albums/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"albums",
+								"1"
+							]
+						},
+						"description": "Supprime l'album spécifié par ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Artists",
+			"item": [
+				{
+					"name": "Afficher tous les son d'un artiste",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/artists/1/songs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"artists",
+								"1",
+								"songs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier un artiste",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"The Beatles\",\n  \"avatar\": \"the_beatles_updated.jpg\",\n  \"biography\": \"The Beatles were an English rock band formed in Liverpool in 1960. The group, whose best-known line-up comprised John Lennon, Paul McCartney, George Harrison and Ringo Starr, are regarded as the most influential band of all time.\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/artists/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"artists",
+								"1"
+							]
+						},
+						"description": "Modifie l'artiste spécifié par ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un artiste",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJNclN1cmljYXRlIiwiZW1haWwiOiJrZXZpbi5mZXJyYXJldHRvQGVjb2xlcy1lcHNpLm5ldCIsImlhdCI6MTc0MjU2NDYyOSwiZXhwIjoxNzQyNTcxODI5fQ.Rk_NtNq0bzkCsMKp2xJonOhxZTNcX_2yqg0hIVFT5E0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/artists/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"artists",
+								"1"
+							]
+						},
+						"description": "Supprime l'artiste spécifié par ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Genres",
+			"item": [
+				{
+					"name": "Afficher tous les genres",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/genres",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier un genre",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Classic Rock\",\n  \"description\": \"Classic rock is a radio format which developed from the album-oriented rock (AOR) format in the early 1980s.\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/genres/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"genres",
+								"1"
+							]
+						},
+						"description": "Modifie le genre spécifié par ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Connecter un utilisateur",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"MrSuricate\",\r\n    \"password\": \"MrSuricate\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ajouter un utilisateur",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"MrSuricate\",\r\n    \"password\": \"MrSuricate\",\r\n    \"email\": \"kevin.ferraretto@ecoles-epsi.net\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un utilisateur",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJNclN1cmljYXRlIiwiZW1haWwiOiJrZXZpbi5mZXJyYXJldHRvQGVjb2xlcy1lcHNpLm5ldCIsImlhdCI6MTc0MjU2NDYyOSwiZXhwIjoxNzQyNTcxODI5fQ.Rk_NtNq0bzkCsMKp2xJonOhxZTNcX_2yqg0hIVFT5E0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						},
+						"description": "Supprime l'utilisateur spécifié par ID"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
