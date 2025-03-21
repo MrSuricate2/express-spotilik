@@ -6,7 +6,8 @@ const {
     updateArtist,
     deleteArtist
 } = require('../controllers/artistController')
+const {authenticateToken} = require("../middleware/auth");
 router.get('/:id/songs', getArtistSong)
 router.put('/:id', updateArtist)
-router.delete('/:id', deleteArtist)
+router.delete('/:id', authenticateToken, deleteArtist)
 module.exports = router

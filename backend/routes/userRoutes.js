@@ -6,7 +6,8 @@ const {
     deleteUser,
     loginUser
 } = require('../controllers/userController')
+const {authenticateToken} = require("../middleware/auth");
 router.post('/signup', addUser)
 router.post('/login', loginUser)
-router.delete('/:id', deleteUser)
+router.delete('/:id', authenticateToken, deleteUser)
 module.exports = router

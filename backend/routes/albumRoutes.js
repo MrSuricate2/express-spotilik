@@ -10,6 +10,7 @@ const {
     updateAlbum,
     deleteAlbum
 } = require('../controllers/albumController');
+const {authenticateToken} = require("../middleware/auth");
 
 router.get('/', getAlbums);
 router.get('/:id', getAlbumById);
@@ -17,6 +18,6 @@ router.get('/:id/songs', getAlbumTracks);
 router.post('/', addAlbum);
 router.post('/:id/songs', addSongToAlbum);
 router.put('/:id', updateAlbum);
-router.delete('/:id', deleteAlbum);
+router.delete('/:id', authenticateToken, deleteAlbum);
 
 module.exports = router;
