@@ -1,17 +1,21 @@
-const { Artist, Track, Album} = require('../models');
+const { Artist, Track, Album, Genre} = require('../models');
 
 const getArtistSong = async (req, res) => {
     try {
         const artist = await Artist.findByPk(req.params.id, {
             include: {
                 model: Track,
-                through: { attributes: [] },
-                include: {
-                    model: Album,
-                    include: [{
-                        model: Artist
-                    }]
-                }
+                include: [
+                    {
+                        model: Album,
+                        include: [{
+                            model: Artist
+                        }]
+                    },
+                    {
+                        model: Genre
+                    }
+                ]
             }
         });
 
