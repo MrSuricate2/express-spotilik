@@ -1,4 +1,4 @@
-const { Album, Track, Artist} = require('../models');
+const { Album, Track, Artist, TrackArtist, TrackGenre} = require('../models');
 
 const getAlbums = async (req, res) => {
     try {
@@ -60,11 +60,37 @@ const addAlbum = async (req, res) => {
 const addSongToAlbum = async (req, res) => {
     try {
         const album = await Album.findByPk(req.params.id);
+        const { genres, artists } = req.body;
+
         if (!album) {
             return res.status(404).json({ message: 'Album not found' });
         }
+
+        if (!artists || artists.length === 0) {
+            return res.status(400).json({ error: 'At least one artist must be specified for the track' });
+        }
+
+        if (!genres || genres.length === 0) {
+            return res.status(400).json({ error: 'At least one genre must be specified for the track' });
+        }
+
         const trackData = { ...req.body, album_id: album.id };
         const newTrack = await Track.create(trackData);
+
+        await artists.map(artist_id =>
+            TrackArtist.create({
+                track_id: newTrack.id,
+                artist_id: artist_id
+            })
+        );
+
+        await genres.map(genre_id =>
+            TrackGenre.create({
+                track_id: newTrack.id,
+                genre_id: genre_id
+            })
+        );
+
         res.status(201).json(newTrack);
     } catch (error) {
         res.status(400).json({ error: error.message });

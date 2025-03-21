@@ -9,11 +9,15 @@ const getArtistSong = async (req, res) => {
                     {
                         model: Album,
                         include: [{
-                            model: Artist
+                            model: Artist,
+                            attributes: ['name']
                         }]
                     },
                     {
                         model: Genre
+                    },
+                    {
+                        model: Artist
                     }
                 ]
             }
